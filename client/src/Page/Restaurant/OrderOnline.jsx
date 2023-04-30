@@ -30,30 +30,7 @@ const OrderOnline = () => {
                 rating: 3,
                 description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. A ut aspernatur hic voluptatem nihil tenetur, expedita ducimus reprehenderit perspiciatis iure. Corrupti necessitatibus laudantium odio modi obcaecati. Eveniet voluptas veritatis doloribus!",
                 title:"McAloo VM®"
-              },
-              {
-                image:"https://b.zmtcdn.com/data/dish_photos/399/636cbc7a1657155434e5e1900ebd5399.png?output-format=webp",
-                price:"1090",
-                rating: 3,
-                description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. A ut aspernatur hic voluptatem nihil tenetur, expedita ducimus reprehenderit perspiciatis iure. Corrupti necessitatibus laudantium odio modi obcaecati. Eveniet voluptas veritatis doloribus!",
-                title:"McAloo VM®"
-              },
-            ]} />
-            <FoodList title="Pizza" items={[
-              {
-                image:"https://b.zmtcdn.com/data/dish_photos/399/636cbc7a1657155434e5e1900ebd5399.png?output-format=webp",
-                price:"1090",
-                rating: 3,
-                description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. A ut aspernatur hic voluptatem nihil tenetur, expedita ducimus reprehenderit perspiciatis iure. Corrupti necessitatibus laudantium odio modi obcaecati. Eveniet voluptas veritatis doloribus!",
-                title:"McAloo VM®"
-              },
-              {
-                image:"https://b.zmtcdn.com/data/dish_photos/399/636cbc7a1657155434e5e1900ebd5399.png?output-format=webp",
-                price:"1090",
-                rating: 3,
-                description:"Lorem ipsum dolor sit, amet consectetur adipisicing elit. A ut aspernatur hic voluptatem nihil tenetur, expedita ducimus reprehenderit perspiciatis iure. Corrupti necessitatibus laudantium odio modi obcaecati. Eveniet voluptas veritatis doloribus!",
-                title:"McAloo VM®"
-              },
+              }
             ]} />
           </section>
         </div>
