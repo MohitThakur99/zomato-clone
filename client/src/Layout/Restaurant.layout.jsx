@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { TiStarFullOutline } from "react-icons/ti";
 import { RiDirectionLine, RiShareForwardLine } from "react-icons/ri";
 import { BiBookmarkPlus } from "react-icons/bi";
+import { useParams } from 'react-router-dom/cjs/react-router-dom';
+import { useDispatch } from "react-redux"
 
 // components
 import RestaurantNavbar from "../components/Navbar/RestaurantNavbar";
@@ -11,24 +13,40 @@ import InfoButtons from '../components/Restaurant/InfoButtons';
 import TabContainer from '../components/Restaurant/Tabs';
 import CartContainer from '../components/Cart/CartContainer';
 
+// redux actions
+import { getSpecificRestaurant } from '../Redux/Reducer/restaurant/restaurant.action';
+import { getImage } from "../Redux/Reducer/Image/Image.action";
+
 const RestaurantLayout = (props) => {
+  const [restaurant, setRestaurant] = useState({ 
+    images: [],
+    name: "",
+    cuisine: "",
+    address: "",
+  })
+  const {id} = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSpecificRestaurant(id)).then((data) => {
+      setRestaurant(prev => ({...prev, ...data.payload.restaurant}))
+
+      dispatch(getImage(data.payload.restaurant.photos)).then(data => 
+        setRestaurant(prev => ({...prev, ...data.payload.image })))
+    });
+  },[])
+
   return (
     <>
     <RestaurantNavbar />
       <div className='container mx-auto px-4 lg:px-20'>
-        <ImageGrid images={[
-          "https://b.zmtcdn.com/data/pictures/chains/1/171/c6da9ad72c43cb2c2dc2c821d1f115ee.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-          "https://b.zmtcdn.com/data/pictures/chains/1/171/c6da9ad72c43cb2c2dc2c821d1f115ee.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-          "https://b.zmtcdn.com/data/pictures/chains/1/171/c6da9ad72c43cb2c2dc2c821d1f115ee.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-          "https://b.zmtcdn.com/data/pictures/chains/1/171/c6da9ad72c43cb2c2dc2c821d1f115ee.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-          "https://b.zmtcdn.com/data/pictures/chains/1/171/c6da9ad72c43cb2c2dc2c821d1f115ee.jpg?output-format=webp&fit=around|771.75:416.25&crop=771.75:416.25;*,*",
-        ]} />
+        <ImageGrid images={restaurant.images} />
           <RestaurantInfo 
-            name="McDonald's" 
-            restaurantRating="3.8" 
-            deliveryRating="3.4" 
-            cuisine="Burger, Fast Food, Beverages, Coffee" 
-            address="Naraina, New Delhi"
+            name={restaurant?.name}
+            restaurantRating={restaurant?.rating || 0} 
+            deliveryRating={restaurant?.rating || 0} 
+            cuisine={restaurant?.cuisine} 
+            address={restaurant?.address}
           />
           <div className='my-4 flex flex-wrap gap-3'>
             <InfoButtons isActive>

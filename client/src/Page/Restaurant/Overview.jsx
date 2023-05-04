@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useParams } from "react-router-dom"
 import ReactStars from "react-rating-stars-component";
 import { IoMdArrowDropright } from "react-icons/io";
 import Slider from "react-slick";
+import { useSelector, useDispatch } from "react-redux"
 
 // components
 import MenuCollection from '../../components/Restaurant/MenuCollection';
@@ -11,8 +12,28 @@ import { NextArrow,PrevArrow } from '../../components/CarousalArrow';
 import ReviewCard from '../../components/Restaurant/Reviews/reviewCard';
 import Mapview from "../../components/Restaurant/Mapview";
 
+// redux actions
+import { getImage } from '../../Redux/Reducer/Image/Image.action';
+
 const Overview = () => {
+  const [ menuImages ,setMenuImages ] = useState({ images: []});
+
   const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const reduxState = useSelector(
+    (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
+  );
+
+  useEffect(() => {
+    if (reduxState) {
+      dispatch(getImage(reduxState?.menuImages)).then((data) => {
+        const images = [];
+        data.payload.image.images.map(({ location }) => images.push(location));
+        setMenuImages(images);
+      });
+    }
+  },[]);
 
   const settings = {
     arrows: true,
@@ -46,10 +67,7 @@ const Overview = () => {
             <MenuCollection
               menuTitle="Menu"
               pages="3"
-              image={[
-                "https://b.zmtcdn.com/data/menus/920/19438920/21fa39744f465abc5f947f1e9319fb5d.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A",
-                "https://b.zmtcdn.com/data/menus/920/19438920/21fa39744f465abc5f947f1e9319fb5d.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A"
-              ]}
+              image={menuImages}
             />
           </div>
           <h4 className="text-lg font-medium my-4">Cuisines</h4>
