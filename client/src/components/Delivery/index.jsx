@@ -10,7 +10,7 @@ const Delivery = () => {
   const [restaurantList, setRestaurantList] = useState([]);
 
   const reduxState = useSelector(
-    (globalStore) => globalStore.restaurantReducer.restaurants
+    (globalStore) => globalStore.restaurant.restaurants
   );
 
   useEffect(() => {

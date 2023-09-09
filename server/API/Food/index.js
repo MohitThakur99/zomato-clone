@@ -31,6 +31,25 @@ Router.get("/r/:_id", async (req, res) => {
 });
 
 /*
+Route       /:_id
+Des         Get food based on id
+Params      _id
+Access      Public
+Method      GET
+*/
+
+Router.get("/r/:_id", async (req, res) => {
+    try {
+        const { _id } = req.params;
+        const foods = await FoodModel.findById(_id);
+        
+        return res.json({ foods });
+    } catch (error) {
+        return res.status(500).json({error: error.message });
+    }
+});
+
+/*
 Route       /r
 Des         Get all food based on particular category
 Params      category
@@ -45,6 +64,24 @@ Router.get("/r/:category", async (req, res) => {
         const { category } = req.params;
         const foods = await FoodModel.find({ category: { $regex: category, $options: "i"}});
         return res.json({ foods });
+    } catch (error) {
+        return res.status(500).json({error: error.message });
+    }
+});
+
+/*
+Route       /food/new
+Des         Get all food based on particular category
+Params      category
+Access      Public
+Method      POST
+*/
+
+Router.post("/new", async (req, res) => {
+    try {
+        const { foodData } = req.body;
+        const newFood = await FoodModel.create(foodData);
+        return res.json({ foods: newFood });
     } catch (error) {
         return res.status(500).json({error: error.message });
     }

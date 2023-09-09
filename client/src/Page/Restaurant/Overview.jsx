@@ -14,9 +14,12 @@ import Mapview from "../../components/Restaurant/Mapview";
 
 // redux actions
 import { getImage } from '../../Redux/Reducer/Image/Image.action';
+import { getReviews } from '../../Redux/Reducer/Reviews/review.action';
+
 
 const Overview = () => {
-  const [ menuImages ,setMenuImages ] = useState({ images: []});
+  const [ menuImage ,setMenuImage ] = useState({ images: []});
+  const [ Reviews ,setReviews ] = useState([]);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -26,15 +29,18 @@ const Overview = () => {
   );
 
   useEffect(() => {
-    if (reduxState) {
-      dispatch(getImage(reduxState?.menuImages)).then((data) => {
-        const images = [];
-        data.payload.image.images.map(({ location }) => images.push(location));
-        setMenuImages(images);
-      });
-    }
-  },[]);
-
+      if(reduxState){
+        dispatch(getImage(reduxState?.menuImages)).then((data) => {
+          const images = [];
+          data.payload.image.images.map(({ location }) => images.push(location));
+          setMenuImage(images);
+        });
+        dispatch(getReviews(reduxState?._id)).then((data) =>
+          setReviews(data.payload.reviews)
+        );
+      }
+  },[reduxState]);
+  
   const settings = {
     arrows: true,
     infinite: true,
@@ -68,11 +74,7 @@ const Overview = () => {
             </Link>
           </div>
           <div className="flex flex-wrap gap-3 my-4">
-            <MenuCollection
-              menuTitle="Menu"
-              pages="3"
-              image={menuImages}
-            />
+            <MenuCollection menuTitle="Menu" pages="3" image={menuImage} />
           </div>
           <h4 className="text-lg font-medium my-4">Cuisines</h4>
           <div className="flex flex-wrap gap-2">
@@ -126,6 +128,9 @@ const Overview = () => {
               size={24}
               activeColor="#ffd700"
             />
+            {Reviews.map((reviewData) => (
+              <ReviewCard {...reviewData}/>
+            ))}
           </div>
           <div className='my-4 w-full md:hidden flex flex-col gap-4'>
             <Mapview

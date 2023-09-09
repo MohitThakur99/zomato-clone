@@ -9,15 +9,15 @@ const RestaurantCard = (props) => {
     images: [
         {
             location: "",
-        }
-    ]
-  })
+        },
+    ],
+  });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     props.photos && dispatch(getImage(props.photos)).then((data) => setImage(data.payload.image))
-  },[props.photos])
+  },[props.photos]);
 
   return (
     <>
@@ -37,7 +37,9 @@ const RestaurantCard = (props) => {
                   </span>
                   )}
                   </div>
-                  <span className='bg-white bg-opacity-75 p-1 rounded mr-3'>42 min</span>
+                  <span className='bg-white bg-opacity-75 p-1 rounded mr-3'>
+                    {props.durationOfDelivery}
+                  </span>
               </div>
               <img 
                 src={image.images.length && image.images[0].location} 

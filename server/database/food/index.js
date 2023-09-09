@@ -5,15 +5,16 @@ const FoodSchema = new mongoose.Schema({
     descript: { type: String, required: true },
     isVeg: { type: Boolean, required: true },
     isContainsEgg: { type: Boolean, required: true },
+    isNonVeg: { type: Boolean, required: true },
     category: { type: String, required: true },
     photos: {
         type: mongoose.Types.ObjectId,
         ref: "Images",
     },
-        price: { type: Number, default: 150, required: true},
+    price: { type: Number, default: 150, required: true},
     addOns: [{
         type: mongoose.Types.ObjectId,
-        ref: "Food",
+        ref: "Foods",
     }],
     restaurant: {
         type: mongoose.Types.ObjectId,
@@ -29,4 +30,4 @@ const FoodSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-export const FoodModel = mongoose.model("Food", FoodSchema);
+export const FoodModel = mongoose.model("Foods", FoodSchema);

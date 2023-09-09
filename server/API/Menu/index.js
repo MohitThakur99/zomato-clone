@@ -20,7 +20,7 @@ Method      GET
 Router.get("/list/:_id", async (req, res) => {
     try {
         const { _id } = req.params;
-        const menu = await MenuModel.findOne(_id);
+        const menu = await MenuModel.findById(_id);
 
         return res.json({ menu });
     } catch (error) {
@@ -42,6 +42,36 @@ Router.get("/image/:_id", async (req, res) => {
         const menuImages = await ImageModel.findOne(_id);
 
         return res.json({ menuImages });
+    } catch (error) {
+        return res.status(500).json({error: error.message });
+    }
+});
+/*
+Route       /menu/new
+Des         Post new menu
+Params      none
+Access      Public
+Method      POST
+*/
+
+Router.post("/new", async (req, res) => {
+    try {
+        const { menuData } = req.body;
+        if(menuData._id) {
+            const updateMenu = await MenuModel.findByIdAndUpdate(
+                menuData._id,
+                {
+                    $push: {
+                        menus: { $each: menuData.menus },
+                    },
+                },
+                { new: true }
+            );
+            return res.json({ menu: updateMenu });
+        }
+        const createNewMenu = await MenuModel.create(menuData);
+        
+        return res.json({ menu: createNewMenu });
     } catch (error) {
         return res.status(500).json({error: error.message });
     }

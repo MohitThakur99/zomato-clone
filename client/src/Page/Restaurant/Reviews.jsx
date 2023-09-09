@@ -1,11 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux"
 
 // components
 import ReviewCard from "../../components/Restaurant/Reviews/reviewCard"
 import AddReviewCard from '../../components/Restaurant/Reviews/AddReviewCard';
 
+// Redux actions
+import { getReviews } from '../../Redux/Reducer/Reviews/review.action';
+
 const Reviews = () => {
-    const [reviews,setReviews] = useState(["","",""]);
+    const [reviews,setReviews] = useState([]);
+
+    const dispatch = useDispatch();
+    const reduxState = useSelector(
+      (globalStore) => globalStore.restaurant.selectedRestaurant.restaurant
+    );
+
+    useEffect(() => {
+      if(reduxState){
+        dispatch(getReviews(reduxState?._id)).then((data) =>
+          setReviews(data.payload.reviews)
+        );
+      }
+  },[reduxState]);
 
   return (
     <>

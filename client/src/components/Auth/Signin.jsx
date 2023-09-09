@@ -1,12 +1,36 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
+import { useDispatch } from 'react-redux';
+
+// redux actions
+import { signIn } from '../../Redux/Reducer/Auth/Auth.action';
 
 export default function SignIn({ isOpen, setIsOpen }) {
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+  
+  const dispatch = useDispatch();
 
+  const handleChange = (e) => 
+    setUserData((prev) => ({...prev, [e.target.name]: e.target.value }));
+  
   function closeModal() {
     setIsOpen(false)
   }
+
+  const submit = () => {
+    setUserData({
+      email: "",
+      password: "",
+    });
+    dispatch(signIn(userData))
+  };
+
+  const googleSignIn = () => 
+  (window.location.href = "http://localhost:5000/auth/google");
 
   return (
     <>
@@ -42,7 +66,7 @@ export default function SignIn({ isOpen, setIsOpen }) {
                   >
                   </Dialog.Title>
                   <div className="mt-2 flex flex-col gap-3 w-full">
-                    <button className='flex justify-center py-2 rounded-lg items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-200'>
+                    <button onClick={googleSignIn} className='flex justify-center py-2 rounded-lg items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-200'>
                         Signin with Google <FcGoogle />
                     </button>
 
@@ -52,6 +76,9 @@ export default function SignIn({ isOpen, setIsOpen }) {
                             <input 
                               type="text" 
                               id="email" 
+                              name="email"
+                              value={userData.email}
+                              onChange={handleChange}
                               placeholder="email@email.com"
                               className='w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-zomato-400'
                             />
@@ -61,11 +88,14 @@ export default function SignIn({ isOpen, setIsOpen }) {
                             <input 
                               type="password" 
                               id="password" 
+                              name="password"
+                              value={userData.password}
+                              onChange={handleChange}
                               placeholder="********"
                               className='w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-zomato-400'
                             />
                         </div>
-                        <div className='w-full text-center bg-zomato-400 text-white py-2 rounded-lg'>
+                        <div onClick={submit} className='w-full text-center bg-zomato-400 text-white py-2 rounded-lg'>
                             Sign in
                         </div>
                     </form>

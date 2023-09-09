@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { TiStarFullOutline } from 'react-icons/ti';
+import { useDispatch } from 'react-redux';
+import { getUser } from '../../../Redux/Reducer/User/user.action';
+import dayjs from "dayjs";
 
-const ReviewCard = () => {
+const ReviewCard = (props) => {
+  const [user, setUser] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser(props.user)).then((data) => 
+      setUser(data.payload.user.fullname)
+    );
+  },[]);
+
   return (
     <>
       <div className='my-3 flex flex-col gap-3'>
@@ -15,7 +27,7 @@ const ReviewCard = () => {
                   />
               </div>
               <div className='flex flex-col'>
-                 <h3 className='text-lg font-semibold'>Mohit Thakur</h3> 
+                 <h3 className='text-lg font-semibold'>{user}</h3> 
                  <small className='text-gray-500'>25 Reviews &#8226 3 followers</small>
               </div>
             </div>
@@ -27,11 +39,15 @@ const ReviewCard = () => {
               <span className='text-white text-xs bg-green-700 px-2 py-1 rounded-lg flex items-center gap-1'>
                 4 <TiStarFullOutline />
               </span>
-              <h5 className='font-regular uppercase'>Delivery</h5>
-              <small className='text-gray-500'>Delivery</small>
+              <h5 className='font-regular uppercase'>{props.isRestaurantReview? "Dining":"Delivery"}</h5>
+              <small className='text-gray-500'>
+                {dayjs(props.createdAt).format("DD MM YYYY")}
+              </small>
             </div>
             <div className='w-full'>
-              <p className='w-full text-gray-600 font-light text-base'>Amazing Maharaja Mac. Thanks McD</p>
+              <p className='w-full text-gray-600 font-light text-base'>
+                {props.reviewText}
+              </p>
             </div>
           </div>
         </div>

@@ -4,14 +4,14 @@ import thunk from "redux-thunk"
 import rootReducer from "./Reducer/rootReducer";
 
 // redux middlewares
-const middleware = [thunk];
+const middlewares = [thunk];
 
 if(process.env.NODE_ENV === "development") {
     const { logger } = require("redux-logger");
 
-    middleware.push(logger);
+    middlewares.push(logger);
 }
 
-const store = createStore(rootReducer, {}, applyMiddleware(...middleware));
+const store = createStore(rootReducer, {}, applyMiddleware(...middlewares));
 
-export default store
+export default store;

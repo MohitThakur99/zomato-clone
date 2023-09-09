@@ -9,13 +9,13 @@ const ImageReducer = (state = INITIAL_STATE, action) => {
         case GET_IMAGE: 
             return {
                 ...state,
-                restaurants: action.payload,
-            }
+                Image: action.payload,
+            };
             
         default:
             return {
                 ...state,
-            }
+            };
     }
 }
 
