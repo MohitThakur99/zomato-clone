@@ -9,4 +9,4 @@ import cart from "./Cart/Cart.reducer";
 
 const rootReducer = combineReducers({ restaurant,image,reviews,user,food,cart });
 
-export default rootReducer
+export default rootReducer;

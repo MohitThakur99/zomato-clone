@@ -11,7 +11,6 @@ import FoodList from '../../components/Restaurant/Order-Online/FoodList';
 // redux actions
 import { getFood, getFoodList } from '../../Redux/Reducer/Food/Food.action';
 
-
 const OrderOnline = () => {
   const [menu, setMenu] = useState([]);
   const [selected,setSelected] = useState("");
