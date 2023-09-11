@@ -1,17 +1,41 @@
 import React from "react";
+import { BsTrashFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+
+// redux actions
+import { deleteCart,IncQty,DecQty } from "../../Redux/Reducer/Cart/Cart.action";
 
 const FoodItem = (props) => {
+  const dispatch = useDispatch();
+
+  const deleteFoodFromCart = () => {
+    dispatch(deleteCart(props._id));
+  };
+
+  const Increment = () => dispatch(IncQty(props._id));
+  const Decrement = () => {
+    if(props.quantity === 1) return;
+    dispatch(DecQty(props._id));
+  }
+
   return (
     <>
       <div className="flex items-center justify-between">
         <h5>{props.name}</h5>
-        <div className="flex flex-col items-end">
-          <small>₹{parseInt(props.price) * parseInt(props.quantity)}</small>
-          <div className="px-1 bg-zomato-400 text-white rounded flex items-center gap-1">
-            <button className="p-1 bg-zomato-400 text-white rounded">-</button>
-            <small>38</small>
-            <button className="p-1 bg-zomato-400 text-white rounded">+</button>
+        <div className="flex items-center gap-2">
+          <div className="flex flex-col items-end">
+            <small>₹{parseInt(props.price) * parseInt(props.quantity)}</small>
+            <div className="px-1 bg-zomato-400 text-white rounded flex items-center gap-1">
+              <button onClick={Decrement} className="p-1 bg-zomato-400 text-white rounded">
+                -
+              </button>
+              <small>{props.quantity}</small>
+              <button onClick={Increment} className="p-1 bg-zomato-400 text-white rounded">
+                +
+              </button>
+            </div>
           </div>
+            <BsTrashFill onClick={deleteFoodFromCart} className="text-zomato-400 text-lg md:text-xl" />
         </div>
       </div>
       <hr className="my-1" />
