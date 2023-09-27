@@ -13,7 +13,7 @@ import SignUp from "../Auth/Signup";
 
 const MobileNav = ({ SignIn, SignUp }) => {
   const [isDropDownOpen, setIsDropDownOpwn] = useState(false)
-  const reduxState = useSelector((global) => global.user.user);
+  const reduxState = useSelector((global) => global.user);
   
   return (
     <div className="flex w-full items-center justify-between lg:hidden">
