@@ -25,4 +25,4 @@ const FoodReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
-export default FoodReducer
+export default FoodReducer;

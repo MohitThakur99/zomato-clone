@@ -9,7 +9,7 @@ import MenuListContainer from '../../components/Restaurant/Order-Online/MenuList
 import FoodList from '../../components/Restaurant/Order-Online/FoodList';
 
 // redux actions
-import { getFood, getFoodList } from '../../Redux/Reducer/Food/Food.action';
+import { getFoodList } from '../../Redux/Reducer/Food/Food.action';
 
 const OrderOnline = () => {
   const [menu, setMenu] = useState([]);
@@ -28,7 +28,7 @@ const OrderOnline = () => {
 
   useEffect(() => {
     reduxState && 
-      dispatch(getFoodList(reduxState.menu)).then((data) => 
+      dispatch(getFoodList(reduxState?.menu)).then((data) => 
         setMenu(data.payload.menu.menus)
       );
   },[reduxState]);
@@ -57,7 +57,7 @@ const OrderOnline = () => {
           </section>
         </div>
       </div>
-      <FloatMenuBtn />
+      {/* <FloatMenuBtn /> */}
     </>
   )
 }

@@ -14,7 +14,7 @@ const FoodItem = (props) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getFood(props._id)).then((data) => {
+    dispatch(getFood(props?._id)).then((data) => {
       setFood(data.payload.foods);
       dispatch(getImage(data.payload.foods.photos)).then((data) => {
         const { images } = data.payload.image;

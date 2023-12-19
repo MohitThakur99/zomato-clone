@@ -1,14 +1,14 @@
-import axios from "axios"
+import axios from "axios";
 
 // Redux types
-import { CREATE_ORDER,ORDER_PLACED } from "./order.type"
+import { CREATE_ORDER,ORDER_PLACED } from "./order.type";
 
 export const createOrder = (amount) => async (dispatch) => {
     try {
         const order =  await axios({
             method: "POST",
             url: "http://localhost:5000/payments/new",
-            data: { amount }
+            data: { amount },
         })
     
         return dispatch({ type: CREATE_ORDER, payload: order.data })

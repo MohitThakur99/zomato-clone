@@ -14,7 +14,7 @@ import googleConfig from "./config/google.config.js";
 import routeConfig from "./config/route.config.js";
 
 // microservice routes
-import Auth from "./API/Auth/index.js";
+import Auth from "./API/Auth";
 import Restaurant from "./API/Restaurant";
 import Food from "./API/Food";
 import Image from "./API/Image";

@@ -1,4 +1,3 @@
-
 const INITIAL_STATE = {};
 
 const orderReducer = (state = INITIAL_STATE, action) => {
@@ -6,9 +5,9 @@ const orderReducer = (state = INITIAL_STATE, action) => {
         default:
             return {
                 ...state,
-            }
+            };
     }
-}
+};
 
 
-export default orderReducer
+export default orderReducer;

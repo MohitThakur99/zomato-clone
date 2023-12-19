@@ -18,17 +18,17 @@ Router.post("/new", async (req, res) => {
         const instance = new RazorPay({ 
             key_id: process.env.RZR_PAY_ID, 
             key_secret: process.env.RZR_PAY_SECRET 
-        })
-        const order = await instance.orders.create({
-            amount: req.body.amount*100,
+        });
+
+        const options = {
+            amount: req.body.amount * 100,
             currency: "INR",
             receipt: `${uuid()}`,
-            notes: {
-            key1: "value3",
-            key2: "value2"
-        }})
+        };
+        const order = await instance.orders.create(options);
         return res.json({ order });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({error: error.message });
     }
 });

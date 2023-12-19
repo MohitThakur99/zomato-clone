@@ -20,6 +20,7 @@ export const signIn = (userData) => async (dispatch) => {
             "zomatoUser",
             JSON.stringify({ token: User.data.token })
         );
+        window.location.href = "http://localhost:3000/delivery";
         return dispatch({ type: SIGN_IN, payload: User.data })
     } catch (error) {
         return dispatch({ type: "ERROR", payload: error })
@@ -40,6 +41,7 @@ export const signUp = (userData) => async (dispatch) => {
             "zomatoUser",
             JSON.stringify({ token: User.data.token })
         );
+        window.location.href = "http://localhost:3000/delivery";
         return dispatch({ type: SIGN_UP, payload: User.data })
     } catch (error) {
         return dispatch({ type: "ERROR", payload: error })
@@ -54,6 +56,7 @@ export const googleAuth = (token) => async (dispatch) => {
         );
 
         getMyself();
+        window.location.href = "http://localhost:3000/delivery";
     
         return dispatch({ type: GOOGLE_AUTH, payload: {} })
     } catch (error) {

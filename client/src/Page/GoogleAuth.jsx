@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { googleAuth } from '../Redux/Reducer/Auth/Auth.action';
 
 const GoogleAuth = () => {
-    const { token } = useParams;
+    const { token } = useParams();
 
     const dispatch = useDispatch();
     const history = useHistory();

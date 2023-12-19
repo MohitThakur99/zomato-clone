@@ -44,7 +44,7 @@ Method      POST
 Router.post("/signin", async (req, res) => {
     try {
         await ValidateSignIn(req.body.credentials);
-        
+
         const user = await UserModel.findByEmailAndPassword(req.body.credentials);
         const token = user.generateJwtToken();
         return res.status(200).json({ token, status: "success" });
@@ -60,18 +60,18 @@ Params    none
 Access    Public
 Method    GET  
 */
-Router.get("/google",passport.authenticate("google", {scope: ["https://www.googleapis.com/auth/userinfo.profile","https://www.googleapis.com/auth/userinfo.email"]}));
+Router.get("/google", passport.authenticate("google", { scope: ["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"] }));
 
 /*
-Route     /google/callback
+Route     /google/callbackF
 Des       Google Signin Callback
 Params    none
 Access    Public
 Method    GET  
 */
-Router.get("/google/callback",passport.authenticate("google", { failureRedirect: "/" }),(req, res) => {
+Router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
     return res.redirect(`http://localhost:3000/google/${req.session.passport.user.token}`);
-  }
+}
 );
 
 export default Router;

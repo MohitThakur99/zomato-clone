@@ -5,15 +5,22 @@ import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { RiSearch2Line } from "react-icons/ri";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import gravatar from "gravatar";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 // components
 import SignIn from "../Auth/Signin";
 import SignUp from "../Auth/Signup";
 
+// redux action
+import { signOut } from "../../Redux/Reducer/Auth/Auth.action";
+
 const MobileNav = ({ SignIn, SignUp }) => {
-  const [isDropDownOpen, setIsDropDownOpwn] = useState(false)
-  const reduxState = useSelector((global) => global.user);
+  const [isDropDownOpen, setIsDropDownOpwn] = useState(false);
+  const dispatch = useDispatch();
+
+  const reduxState = useSelector((global) => global.user.user);
+  
+  const signOutHandler = () => dispatch(signOut());
   
   return (
     <div className="flex w-full items-center justify-between lg:hidden">
@@ -25,7 +32,7 @@ const MobileNav = ({ SignIn, SignUp }) => {
           className="w-full h-full"
         />
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 relative">
         <button className="bg-zomato-400 text-white py-2 px-3 rounded-full">
           Use App
         </button>
@@ -42,7 +49,7 @@ const MobileNav = ({ SignIn, SignUp }) => {
               </div>
               {isDropDownOpen && (
                 <div className="absolute shadow-lg py-3 -bottom-20 -right-4 w-full bg-white z-20 flex flex-col gap-2">
-                  <button>Sign Out</button>
+                  <button onClick={signOutHandler}>Sign Out</button>
                 </div>
               )}
             </>
@@ -66,7 +73,8 @@ const MobileNav = ({ SignIn, SignUp }) => {
 const LargeNav = ({ SignIn, SignUp }) => {
   const [isDropDownOpen, setIsDropDownOpwn] = useState(false)
   const reduxState = useSelector((global) => global.user.user);
-
+  const dispatch = useDispatch();
+  const signOutHandler = () => dispatch(signOut());
   return (
     <>
       <div className="hidden lg:inline container px-20 mx-auto">
@@ -112,7 +120,7 @@ const LargeNav = ({ SignIn, SignUp }) => {
               </div>
               {isDropDownOpen && (
                 <div className="absolute shadow-lg py-3 -bottom-20 -right-4 w-full bg-white z-20 flex flex-col gap-2">
-                  <button>Sign Out</button>
+                  <button onClick={signOutHandler}>Sign Out</button>
                 </div>
               )}
             </div>

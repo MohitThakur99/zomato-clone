@@ -7,7 +7,8 @@ import user from "./User/user.reducer";
 import food from "./Food/Food.reducer";
 import cart from "./Cart/Cart.reducer";
 import order from "./Order/order.reducer";
+import auth from "./Auth/Auth.reducer";
 
-const rootReducer = combineReducers({ restaurant,image,reviews,user,food,cart,order });
+const rootReducer = combineReducers({ restaurant,image,reviews,user,food,cart,auth,order });
 
 export default rootReducer;
